@@ -7,9 +7,10 @@ plugins {
 
 group = "team16"
 version = "0.0.1-SNAPSHOT"
+
 java {
 	toolchain {
-		languageVersion.set(JavaLanguageVersion.of(21))
+		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
@@ -60,6 +61,15 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt-api:0.12.6")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
+	implementation(kotlin("stdlib-jdk8"))
+	// 코프링
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+	// 테스트
+	// 생략
+
+	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 }
 
 tasks.withType<Test> {

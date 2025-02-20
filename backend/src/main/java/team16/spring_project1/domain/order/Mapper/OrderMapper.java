@@ -12,16 +12,16 @@ import java.util.List;
 public class OrderMapper {
 
     public OrderResponseDTO toOrderResponseDTO(Order order) {
-        return new OrderResponseDTO(
+		order.getStatus();
+		order.getOrderItems();
+		return new OrderResponseDTO(
                 order.getId(),
                 order.getEmail(),
-                order.getStatus() != null ? order.getStatus().name() : "UNKNOWN",
+			order.getStatus().name(),
                 order.getTotalPrice(),
                 order.getCreateDate(),
                 order.getModifyDate(),
-                order.getOrderItems() != null
-                        ? order.getOrderItems().stream().map(this::toOrderItemResponseDTO).toList()
-                        : List.of()
+			order.getOrderItems().stream().map(this::toOrderItemResponseDTO).toList()
         );
     }
 

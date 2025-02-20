@@ -26,7 +26,6 @@ public class OrderService {
 
     @Transactional
     public Order createOrder(Order order) {
-
         for (OrderItem item : order.getOrderItems()) {
             item.setOrder(order);
         }
