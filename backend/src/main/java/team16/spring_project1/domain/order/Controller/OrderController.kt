@@ -20,13 +20,15 @@ import java.util.*
 @RequestMapping("/order")
 @RequiredArgsConstructor
 @Tag(name = "Order Controller", description = "주문 관리 REST API")
-class OrderController {
-    private val orderService: OrderService? = null
+class OrderController (
+    val orderService: OrderService
+){
+
 
     @Operation(summary = "Create Order", description = "새로운 주문을 생성합니다.")
     @PostMapping
-    fun createOrder(@RequestBody order: @Valid Order): ResponseEntity<ApiResponse<OrderResponseDTO>> {
-        val savedOrder = orderService!!.createOrderDTO(order)
+    fun createOrder(@Valid@RequestBody order:  Order): ResponseEntity<ApiResponse<OrderResponseDTO>> {
+        val savedOrder = orderService.createOrderDTO(order)
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(ApiResponse.success(savedOrder))
@@ -36,7 +38,7 @@ class OrderController {
     @get:Operation(summary = "Get All Orders", description = "모든 주문 목록을 가져옵니다.")
     val allOrder: ResponseEntity<ApiResponse<List<OrderResponseDTO>>>
         get() {
-            val orders = orderService!!.allOrderDTO
+            val orders = orderService.allOrderDTO
 
             return if (orders.isEmpty()) {
                 ResponseEntity.ok(
@@ -57,13 +59,13 @@ class OrderController {
     @Operation(summary = "Get Orders by Email", description = "이메일을 기준으로 주문 목록을 가져옵니다.")
     @GetMapping("/by-email")
     fun getOrdersByEmail(@RequestParam email: String?): ResponseEntity<ApiResponse<List<OrderResponseDTO>>> {
-        if (email == null || email.isEmpty()) {
+        if (email.isNullOrEmpty()) {
             return ResponseEntity
                 .badRequest()
                 .body(ApiResponse.failure("유효하지 않은 email 값입니다."))
         }
 
-        val orders = orderService!!.getOrdersDTOByEmail(email)
+        val orders = orderService.getOrdersDTOByEmail(email)
 
         return if (orders.isEmpty()) {
             ResponseEntity.ok(
@@ -83,14 +85,14 @@ class OrderController {
     @Operation(summary = "Get Order by ID", description = "주문 ID를 기준으로 특정 주문을 가져옵니다.")
     @GetMapping("/{id}")
     fun getOrderById(@PathVariable id: Long): ResponseEntity<ApiResponse<OrderResponseDTO>> {
+
         if (id <= 0) {
             return ResponseEntity
                 .badRequest()
                 .body(ApiResponse.failure("유효하지 않은 ID 값입니다."))
         }
 
-        val order = orderService!!.getOrderDTOById(id)
-
+        val order = orderService.getOrderDTOById(id)
         return if (order.isEmpty) {
             ResponseEntity.ok(
                 ApiResponse.success(
@@ -117,7 +119,7 @@ class OrderController {
     ): ResponseEntity<ApiResponse<OrderResponseDTO>> {
         val deliveryStatus = DeliveryStatus.valueOf(status.uppercase(Locale.getDefault()))
 
-        val order = orderService!!.updateOrderStatusAndGetOrders(id, deliveryStatus)
+        val order = orderService.updateOrderStatusAndGetOrders(id, deliveryStatus)
 
         return if (order.isEmpty) {
             ResponseEntity.ok(
@@ -137,7 +139,7 @@ class OrderController {
     @Operation(summary = "Delete Order", description = "주문을 삭제합니다.")
     @DeleteMapping("/{id}")
     fun deleteOrder(@PathVariable id: Long): ResponseEntity<ApiResponse<String>> {
-        val exist = orderService!!.deleteOrder(id)
+        val exist = orderService.deleteOrder(id)
 
         return if (exist) {
             ResponseEntity.ok(

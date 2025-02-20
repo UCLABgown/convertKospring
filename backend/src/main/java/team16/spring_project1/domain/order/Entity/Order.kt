@@ -15,17 +15,17 @@ import team16.spring_project1.global.jpa.entity.BaseTime
 class Order: BaseTime {
 
     @Email
-    @NotBlank
+    @field:NotBlank
     @Schema(description = "이메일", example = "test@gmail.com")
     var email:String? = null
 
     @Schema(description = "주문 금액", example = "1000")
-    @NotNull
+    @field:NotNull
     @Min(1)
     var totalPrice: Int = 0
 
     @Enumerated(EnumType.STRING)
-    @NotNull
+    @field:NotNull
     @Schema(description = "상품 상태, 기본 값으로 PAYMENT_COMPLETED 입니다.", example = "PAYMENT_COMPLETED", accessMode = Schema.AccessMode.READ_ONLY)
     var status :DeliveryStatus = DeliveryStatus.PAYMENT_COMPLETED
 

@@ -13,11 +13,11 @@ class OrderMapper {
         order.orderItems
         return OrderResponseDTO(
             order.id,
-            order.email!!,
+            order.email,
             order.status.name,
             order.totalPrice,
-            order.createDate!!,
-            order.modifyDate!!,
+            order.createDate,
+            order.modifyDate,
             order.orderItems.stream().map { item: OrderItem -> this.toOrderItemResponseDTO(item) }.toList()
         )
     }

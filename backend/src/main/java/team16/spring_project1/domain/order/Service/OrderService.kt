@@ -10,7 +10,10 @@ import team16.spring_project1.global.enums.DeliveryStatus
 
 
 @Service
-class OrderService(private val orderRepository: OrderRepository, private val orderMapper: OrderMapper) {
+class OrderService(
+    val orderRepository: OrderRepository,
+    val orderMapper: OrderMapper
+) {
     @Transactional
     fun createOrder(order: Order): Order {
         for (item in order.orderItems) {

@@ -5,12 +5,12 @@ import java.time.LocalDateTime
 @JvmRecord
 data class OrderResponseDTO(
     val id: Long?,
-    val email: String,
-    val status: String,
-    val totalPrice: Int,
-    val createdAt: LocalDateTime,
-    val modifiedAt: LocalDateTime,
-    val orderItems: List<OrderItemResponseDTO>
+    val email: String?,
+    val status: String?,
+    val totalPrice: Int?,
+    val createdAt: LocalDateTime?,
+    val modifiedAt: LocalDateTime?,
+    val orderItems: List<OrderItemResponseDTO>?
 ) {
     val isEmpty: Boolean
         get() = this.id == null
