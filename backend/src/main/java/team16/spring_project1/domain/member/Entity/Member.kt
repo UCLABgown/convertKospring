@@ -26,12 +26,12 @@ class Member : BaseTime {
         this.apiKey = apiKey
     }
 
-    fun matchPassword(password:String):Boolean {
-        return this.password.equals(password)
+    fun matchPassword(password:String?):Boolean {
+        return this.password == password
     }
 
     val isAdmin: Boolean
-        get() = "admin".equals(username);
+        get() = "admin" == username;
 
     val authoritiesAsStringList: MutableList<String>
         get() {

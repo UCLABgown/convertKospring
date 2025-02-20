@@ -68,7 +68,8 @@ dependencies {
 
 	// 테스트
 	// 생략
-
+	implementation("org.hibernate.validator:hibernate-validator")
+	implementation("jakarta.validation:jakarta.validation-api")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 }
 
